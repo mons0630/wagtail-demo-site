@@ -26,6 +26,12 @@ If using the PostgreSQL database, the database specific environment variables ar
 * ``OPENSHIFT_POSTGRESQL_DB_HOST`` - The name of the host the PostgreSQL database is running on.
 * ``OPENSHIFT_POSTGRESQL_DB_PORT`` - The port number on the host that the PostgreSQL database is listening on for connections.
 
+If using Redis as a key/value data store, the database specific environment variables are as follows. These must match what the Redis server was set up with.
+
+* ``OPENSHIFT_REDIS_HOST`` - The name of the host the Redis key/value data store is running on.
+* ``OPENSHIFT_REDIS_PORT`` - The port number on the host that the Redis key/value data store is listening on for connections.
+
+
 ## Database initialisation
 
 Once you have the Wagtail CMS deployed the first time, you will need to initialise the database and create a super user account for the Django admin.
