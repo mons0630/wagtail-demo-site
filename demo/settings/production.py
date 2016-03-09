@@ -15,7 +15,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 
 ALLOWED_HOSTS = ['*']
 
-if os.environ.get('OPENSHIFT_DATABASE_TYPE') == 'MySQL':
+if os.environ.get('OPENSHIFT_MYSQL_DB_HOST'):
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
@@ -26,7 +26,7 @@ if os.environ.get('OPENSHIFT_DATABASE_TYPE') == 'MySQL':
             'PORT': os.environ.get('OPENSHIFT_MYSQL_DB_PORT')
         }
     }
-elif os.environ.get('OPENSHIFT_DATABASE_TYPE') == 'PostgreSQL':
+elif os.environ.get('OPENSHIFT_POSTGRESQL_DB_HOST'):
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
@@ -35,5 +35,17 @@ elif os.environ.get('OPENSHIFT_DATABASE_TYPE') == 'PostgreSQL':
             'PASSWORD': os.environ.get('OPENSHIFT_POSTGRESQL_DB_PASSWORD'),
             'HOST': os.environ.get('OPENSHIFT_POSTGRESQL_DB_HOST'),
             'PORT': os.environ.get('OPENSHIFT_POSTGRESQL_DB_PORT')
+        }
+    }
+
+if os.environ.get('OPENSHIFT_REDIS_HOST'):
+    CACHES = {
+        'default': {
+            'BACKEND': 'django_redis.cache.RedisCache',
+            'LOCATION': '%s:%s' % (os.environ.get('OPENSHIFT_REDIS_HOST'),
+                    os.environ.get('OPENSHIFT_REDIS_PORT')),
+            'OPTIONS': {
+                'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+            }
         }
     }
