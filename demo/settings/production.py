@@ -42,7 +42,8 @@ if os.environ.get('OPENSHIFT_REDIS_HOST'):
     CACHES = {
         'default': {
             'BACKEND': 'django_redis.cache.RedisCache',
-            'LOCATION': '%s:%s' % (os.environ.get('OPENSHIFT_REDIS_HOST'),
+            'LOCATION': 'redis://%s:%s/1' % (
+                    os.environ.get('OPENSHIFT_REDIS_HOST'),
                     os.environ.get('OPENSHIFT_REDIS_PORT')),
             'OPTIONS': {
                 'CLIENT_CLASS': 'django_redis.client.DefaultClient',
